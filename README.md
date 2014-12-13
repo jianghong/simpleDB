@@ -1,7 +1,6 @@
 SimpleDB
 ===================
 
-Code challenge for Thumbtack
 
     Data Commands
     =============
