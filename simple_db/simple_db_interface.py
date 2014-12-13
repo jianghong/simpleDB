@@ -84,7 +84,7 @@ class SimpleDBInterface:
             return True
 
     def _sanitize(self, target):
-        """Clean up target by lowercasing cmd and stripping whitespace."""
+        """Clean up target by lowercasing target and stripping whitespace."""
         return target.lower().strip()
 
 
