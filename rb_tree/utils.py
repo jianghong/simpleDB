@@ -64,3 +64,25 @@ def verify_RB_tree_properties(RBTree, debug=False):
     if debug:
         print_tree(RBTree.root)
         print "======================"
+
+def insert_test_nodes_1(tt):
+    tt.insert(Node(11)) 
+    tt.insert(Node(2)) 
+    tt.insert(Node(7)) 
+    tt.insert(Node(14)) 
+    tt.insert(Node(1)) 
+    tt.insert(Node(15)) 
+    tt.insert(Node(5)) 
+    tt.insert(Node(8)) 
+    tt.insert(Node(4))    
+
+def insert_test_nodes_2(tt):
+    tt.insert(Node(1)) 
+    tt.insert(Node(2)) 
+    tt.insert(Node(3)) 
+    tt.insert(Node(4)) 
+    tt.insert(Node(5)) 
+    tt.insert(Node(6)) 
+    tt.insert(Node(7)) 
+    tt.insert(Node(8)) 
+    tt.insert(Node(9))    

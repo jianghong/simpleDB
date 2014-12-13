@@ -40,11 +40,11 @@ class RBTree:
         self.root.left = NIL_NODE
         self.root.right = NIL_NODE
 
-    def _tree_min(self):
+    def _tree_min(self, subtree):
         """
-        Return the node with min key.
+        Return the node with min key starting from subtree.
         """
-        walker_node = self.root
+        walker_node = subtree
         while walker_node.left != NIL_NODE:
             walker_node = walker_node.left
 
@@ -86,6 +86,7 @@ class RBTree:
         properties of a Red-black tree.
         """
         walker_node = inserted_node
+        # while performs at most 2 rotations
         while walker_node.parent.color == RED:
             parent_node = walker_node.parent
             grandparent_node = parent_node.parent
@@ -128,7 +129,31 @@ class RBTree:
         """
         Remove node from RBTree.
         """
-        pass
+        successor_node = node
+        original_successor_color = successor_node.color
+        if node.left == NIL_NODE:
+            x_node = node.right
+            self._transplant(node, node.right)
+        elif node.right == NIL_NODE:
+            x_node = node.left
+            self._transplant(node, node.left)
+        else:
+            successor_node = self._tree_min(node.right)
+            original_successor_color = successor_node.color
+            x_node = successor_node.right
+            if successor_node.parent == node:
+                x_node.parent = successor_node
+            else:
+                self._transplant(successor_node, successor_node.right)
+                successor_node.right = node.right
+                successor_node.right.parent = successor_node
+            self._transplant(node, successor_node)
+            successor_node.left = node.left
+            successor_node.left.parent = successor_node
+            successor_node.color = node.color
+
+        if original_successor_color == BLACK:
+            self._fixup_after_delete(x_node)
 
     def _transplant(self, subtree1, subtree2):
         """
@@ -143,12 +168,56 @@ class RBTree:
             subtree1.parent.right = subtree2
         subtree2.parent = subtree1.parent
 
-    def _fixup_after_delete(self, deleted_node):
+    def _fixup_after_delete(self, node):
         """
         Fix up RBTree by recoloring and rotating as needed to maintain 
         properties of a Red-black tree.        
         """
-        pass
+        # while performs at most 3 rotations
+        while node != self.root and node.color == BLACK:
+            if node == node.parent.left:
+                sibling_node = node.parent.right
+                if sibling_node.color == RED:
+                    sibling_node.color = BLACK
+                    node.parent.color = RED
+                    self._left_rotate(node.parent)
+                    sibling_node = node.parent.right
+                if sibling_node.left.color == BLACK and \
+                   sibling_node.right.color == BLACK:
+                    sibling_node.color = RED
+                    node = node.parent
+                elif sibling_node.right.color == BLACK:
+                    sibling_node.left.color = BLACK
+                    sibling_node.color = RED
+                    self._right_rotate(sibling_node)
+                    sibling_node = node.parent.right
+                sibling_node.color = node.parent.color
+                node.parent.color = BLACK
+                sibling_node.right.color = BLACK
+                self._left_rotate(node.parent)
+                node = self.root
+            else:
+                sibling_node = node.parent.left
+                if sibling_node.color == RED:
+                    sibling_node.color = BLACK
+                    node.parent.color = RED
+                    self._right_rotate(node.parent)
+                    sibling_node = node.parent.left
+                if sibling_node.right.color == BLACK and \
+                   sibling_node.left.color == BLACK:
+                    sibling_node.color = RED
+                    node = node.parent
+                elif sibling_node.left.color == BLACK:
+                    sibling_node.right.color = BLACK
+                    sibling_node.color = RED
+                    self._left_rotate(sibling_node)
+                    sibling_node = node.parent.left
+                sibling_node.color = node.parent.color
+                node.parent.color = BLACK
+                sibling_node.left.color = BLACK
+                self._right_rotate(node.parent)
+                node = self.root
+        node.color = BLACK
 
     def _left_rotate(self, x):
         """

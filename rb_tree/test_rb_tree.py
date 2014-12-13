@@ -36,27 +36,11 @@ class RBTreeTests(unittest.TestCase):
         self.assertEqual(self.tt.root.right.right, node_z)
 
     def test_insert_and_verify(self):
-        self.tt.insert(Node(11)) 
-        self.tt.insert(Node(2)) 
-        self.tt.insert(Node(7)) 
-        self.tt.insert(Node(14)) 
-        self.tt.insert(Node(1)) 
-        self.tt.insert(Node(15)) 
-        self.tt.insert(Node(5)) 
-        self.tt.insert(Node(8)) 
-        self.tt.insert(Node(4))
+        insert_test_nodes_1(self.tt)
         verify_RB_tree_properties(self.tt)
 
         self.tt = RBTree()
-        self.tt.insert(Node(1)) 
-        self.tt.insert(Node(2)) 
-        self.tt.insert(Node(3)) 
-        self.tt.insert(Node(4)) 
-        self.tt.insert(Node(5)) 
-        self.tt.insert(Node(6)) 
-        self.tt.insert(Node(7)) 
-        self.tt.insert(Node(8)) 
-        self.tt.insert(Node(9)) 
+        insert_test_nodes_2(self.tt) 
         verify_RB_tree_properties(self.tt)
 
     def test_left_rotate(self):
@@ -125,16 +109,25 @@ class RBTreeTests(unittest.TestCase):
         self.assertEqual(self.tt.query(3), NIL_NODE)        
 
     def test_tree_min(self):
-        self.tt.insert(Node(11)) 
-        self.tt.insert(Node(2)) 
-        self.tt.insert(Node(7)) 
-        self.tt.insert(Node(14)) 
-        self.tt.insert(Node(1)) 
-        self.tt.insert(Node(15)) 
-        self.tt.insert(Node(5)) 
-        self.tt.insert(Node(8)) 
-        self.tt.insert(Node(4))
-        self.assertEqual(self.tt._tree_min().key, 1)        
+        insert_test_nodes_1(self.tt)
+        self.assertEqual(self.tt._tree_min(self.tt.root).key, 1)        
+
+    def test_simple_delete(self):
+        insert_test_nodes_1(self.tt)
+        self.tt.delete(self.tt.query(5))
+        self.assertEqual(self.tt.query(5), NIL_NODE)
+        self.tt.delete(self.tt.query(14))
+        self.assertEqual(self.tt.query(14), NIL_NODE)
+
+    def test_delete_and_verify(self):
+        insert_test_nodes_1(self.tt)
+        self.tt.delete(self.tt.query(5))
+        self.assertEqual(self.tt.query(5), NIL_NODE)
+        verify_RB_tree_properties(self.tt, True)
+        self.tt.delete(self.tt.query(14))
+        self.assertEqual(self.tt.query(14), NIL_NODE)        
+        verify_RB_tree_properties(self.tt, True)
+        
 
 if __name__ == '__main__':
     unittest.main()
