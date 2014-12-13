@@ -104,7 +104,20 @@ if __name__ == '__main__':
     tt.insert(Node(8))
     tt.insert(Node(4))
     verify_RB_tree_properties(tt)
+    print "============"
 
+    tt = RBTree()
+    tt.insert(Node(1))
+    tt.insert(Node(2))
+    tt.insert(Node(3))
+    tt.insert(Node(4))
+    tt.insert(Node(5))
+    tt.insert(Node(6))
+    tt.insert(Node(7))
+    tt.insert(Node(8))
+    tt.insert(Node(9))
+    verify_RB_tree_properties(tt)
+    print "============"
 
     # test left rotation
     tt = RBTree(Node(0))
