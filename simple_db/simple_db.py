@@ -22,14 +22,21 @@ Supported operations:
 
     Transaction Commands
     =====================
-    - BEGIN
-    - ROLLBACK
-    - COMMIT
+    - BEGIN: Open a new transaction block. 
+             Transaction blocks can be nested;
+             a BEGIN can be issued inside of an existing block.
+
+    - ROLLBACK: Undo all of the commands issued in the most 
+                recent transaction block, and close the block. 
+
+    - COMMIT: Close all open transaction blocks, 
+              permanently applying the changes made in them. 
 """
 class SimpleDB:
     def __init__(self):
         self.data_structure = {}
         self.value_count = defaultdict(int)
+        self.transaction_stack = []
 
     def _decr_value_count(self, key):
         """
@@ -73,3 +80,26 @@ class SimpleDB:
         Return the number of times value appears in DB.
         """
         return self.value_count[value]
+
+    def begin(self):
+        """
+        Begin a new transaction.
+        """
+        self.transaction_stack.append([])
+        print self.transaction_stack
+
+    def rollback(self):
+        """
+        Rollback transformation commands in current transaction and close 
+        transaction.
+        """
+        print self.transaction_stack
+
+    def commit(self):
+        """
+        Commit all open transactions and close them.
+        Due to implementation, changes are saved at this point and just
+        need to close transactions.
+        """
+        self.transaction_stack = []
+        print self.transaction_stack

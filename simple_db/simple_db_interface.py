@@ -47,11 +47,11 @@ class SimpleDBInterface:
         elif cmd == 'numequalto':
             self._handle_numequalto(args)
         elif cmd == 'begin':
-            pass
+            self._handle_begin(args)
         elif cmd == 'rollback':
             pass
         elif cmd == 'commit':
-            pass
+            self._handle_commit(args)
         elif cmd == 'end':
             self._handle_end()
         else:
@@ -88,6 +88,18 @@ class SimpleDBInterface:
         else:
             value = args[0]
             print self.db.numequalto(value) 
+
+    def _handle_begin(self, args):
+        if self._bad_args(args, 0):
+            print 'USAGE: BEGIN. No parameters required.'
+        else:
+            self.db.begin()
+
+    def _handle_commit(self, args):
+        if self._bad_args(args, 0):
+            print 'USAGE: COMMIT. No parameters required.'
+        else:
+            self.db.commit()            
 
     def _handle_end(self):
         sys.exit()
