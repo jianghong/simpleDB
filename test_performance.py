@@ -9,7 +9,7 @@ class PerformanceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.db = SimpleDB()
-        cls.n = 10000000
+        cls.n = 100000
         for i in xrange(cls.n):
             cls.db.set(i, i)
 
