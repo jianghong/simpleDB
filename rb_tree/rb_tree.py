@@ -40,6 +40,16 @@ class RBTree:
         self.root.left = NIL_NODE
         self.root.right = NIL_NODE
 
+    def _tree_min(self):
+        """
+        Return the node with min key.
+        """
+        walker_node = self.root
+        while walker_node.left != NIL_NODE:
+            walker_node = walker_node.left
+
+        return walker_node
+
     def insert(self, new_node):
         """
         Insert new_node into RBTree.
@@ -113,6 +123,32 @@ class RBTree:
                     self._left_rotate(walker_node.parent.parent)                                
 
         self.root.color = BLACK
+
+    def delete(self, node):
+        """
+        Remove node from RBTree.
+        """
+        pass
+
+    def _transplant(self, subtree1, subtree2):
+        """
+        Replace subtree1 with subtree2 as child of subtree1's parent.
+        RBTree version.
+        """
+        if subtree1.parent == NIL_NODE:
+            self.root = subtree2
+        elif subtree1 == subtree1.parent.left:
+            subtree1.parent.left = subtree2
+        else:
+            subtree1.parent.right = subtree2
+        subtree2.parent = subtree1.parent
+
+    def _fixup_after_delete(self, deleted_node):
+        """
+        Fix up RBTree by recoloring and rotating as needed to maintain 
+        properties of a Red-black tree.        
+        """
+        pass
 
     def _left_rotate(self, x):
         """

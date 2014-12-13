@@ -75,7 +75,6 @@ class SimpleDBInterface:
             print value if value else 'NULL'
 
     def _handle_end(self):
-        print 'ENDING SIMPLEDB'
         sys.exit()
 
     def _bad_args(self, args, num_required):

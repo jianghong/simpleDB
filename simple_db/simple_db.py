@@ -26,18 +26,18 @@ Supported operations:
 """
 class SimpleDB:
     def __init__(self):
-        self.rb_tree = RBTree()
+        self.data_structure = RBTree()
 
     def set(self, key, value):
         """
-        Set key to value in rb_tree.
+        Set key to value in data_structure.
         """
         new_node = Node(key, value)
-        self.rb_tree.insert(new_node)
+        self.data_structure.insert(new_node)
 
     def get(self, key):
         """
-        Return value of matching key from rb_tree.
+        Return value of matching key from data_structure.
         """
-        return self.rb_tree.query(key)
+        return self.data_structure.query(key)
 
