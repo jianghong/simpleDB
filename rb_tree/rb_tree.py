@@ -10,8 +10,10 @@ def print_tree(node):
     if node is NIL_NODE:
         return
 
-    print "Node key: {0}, parent key: {1}, color: {2}, left: {3}, right: {4}".format(
-        node.key, node.parent.key, node.color, node.left.key, node.right.key)
+    print "Node key: {0}, parent key: {1}, color: {2}, left: {3}, right: {4}" \
+          " value: {5}".format(
+        node.key, node.parent.key, node.color, node.left.key, node.right.key,
+        node.value)
 
     print_tree(node.left)
     print_tree(node.right)
@@ -47,7 +49,11 @@ class RBTree:
         walker_node = self.root
         while walker_node != NIL_NODE:
             operating_node = walker_node
-            if new_node.key < walker_node.key:
+            # on key collision override old node value with new_node value
+            if new_node.key == walker_node.key:
+                walker_node.value = new_node.value
+                return
+            elif new_node.key < walker_node.key:
                 walker_node = walker_node.left
             else:
                 walker_node = walker_node.right

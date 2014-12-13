@@ -148,3 +148,9 @@ if __name__ == '__main__':
     tt.insert(Node(9))
     assert tt.query(5).value == 'b'
     assert tt.query('nope').value is None
+
+    # test key collision
+    tt = RBTree(Node('a', 1,))
+    assert tt.query('a').value == 1
+    tt.insert(Node('a', 5))
+    assert tt.query('a').value == 5
