@@ -1,8 +1,6 @@
-from rb_tree.rb_tree import *
-
 """
 SimpleDB is a simple database similar to redis. The underlying data structure
-is a Red-black tree.
+is a python dictionary
 
 Supported operations:
     Data Commands
@@ -27,26 +25,23 @@ Supported operations:
 """
 class SimpleDB:
     def __init__(self):
-        self.data_structure = RBTree()
+        self.data_structure = {}
 
     def set(self, key, value):
         """
         Set key to value in data_structure.
         """
-        new_node = Node(key, value)
-        self.data_structure.insert(new_node)
+        self.data_structure[key] = value
 
     def get(self, key):
         """
         Return value of matching key from data_structure.
         """
-        return self.data_structure.query(key)
+        return self.data_structure.get(key, None)
 
     def unset(self, key):
         """
         Unset matching key in data_structure if it exists.
         """
-        to_delete = self.get(key)
-        if to_delete != NIL_NODE:
-            self.data_structure.delete(to_delete)
+        self.data_structure.pop(key, None)
 

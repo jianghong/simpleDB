@@ -62,7 +62,7 @@ class SimpleDBInterface:
             print 'USAGE: GET [name]. 1 parameter only.'
         else:
             key = args[0]
-            value = self.db.get(key).value 
+            value = self.db.get(key) 
             print value if value else 'NULL'
 
     def _handle_set(self, args):
