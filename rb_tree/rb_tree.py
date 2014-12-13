@@ -153,7 +153,7 @@ class RBTree:
         Search and return the node with matching key.
         """
         def _query_helper(node, key):
-            if key == node.key:
+            if node == NIL_NODE or key == node.key:
                 return node
             elif key < node.key:
                 return _query_helper(node.left, key)

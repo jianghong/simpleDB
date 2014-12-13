@@ -39,9 +39,9 @@ class SimpleDBInterface:
 
         # chain of ifs instead of dict style for simplicity
         if cmd == 'get':
-            pass
+            self._handle_get(args)
         elif cmd == 'set':
-            pass
+            self._handle_set(args)
         elif cmd == 'unset':
             pass
         elif cmd == 'numequalto':
@@ -53,10 +53,35 @@ class SimpleDBInterface:
         elif cmd == 'commit':
             pass
         elif cmd == 'end':
-            print 'ENDING SIMPLEDB'
-            sys.exit()
+            self._handle_end()
         else:
             print 'UNRECOGNIZED COMMAND'
+
+    def _handle_set(self, args):
+        if self._bad_args(args, 2):
+            print 'USAGE: SET [name] [value]. 2 parameters only.'
+        else:
+            key = args[0]
+            value = args[1]
+            self.db.set(key, value)
+            print ''
+
+    def _handle_get(self, args):
+        if self._bad_args(args, 1):
+            print 'USAGE: GET [name]. 1 parameter only.'
+        else:
+            key = args[0]
+            value = self.db.get(key).value 
+            print value if value else 'NULL'
+
+    def _handle_end(self):
+        print 'ENDING SIMPLEDB'
+        sys.exit()
+
+    def _bad_args(self, args, num_required):
+        if len(args) != num_required:
+            print 'ERROR: Incorect number of arguments.'
+            return True
 
     def _sanitize(self, target):
         """Clean up target by lowercasing cmd and stripping whitespace."""
