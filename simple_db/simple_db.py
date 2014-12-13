@@ -1,4 +1,4 @@
-from rb_tree import RBTree
+from rb_tree.rb_tree import RBTree
 
 """
 SimpleDB is a simple database similar to redis. The underlying data structure
