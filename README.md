@@ -1,4 +1,4 @@
-thumbtack_challenge
+SimpleDB
 ===================
 
 Code challenge for Thumbtack
