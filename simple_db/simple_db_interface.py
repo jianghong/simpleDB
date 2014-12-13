@@ -45,7 +45,7 @@ class SimpleDBInterface:
         elif cmd == 'unset':
             self._handle_unset(args)
         elif cmd == 'numequalto':
-            pass
+            self._handle_numequalto(args)
         elif cmd == 'begin':
             pass
         elif cmd == 'rollback':
@@ -81,6 +81,13 @@ class SimpleDBInterface:
             key = args[0]
             self.db.unset(key)
             print ''
+
+    def _handle_numequalto(self, args):
+        if self._bad_args(args, 1):
+            print 'USAGE: NUMEQUALTO [value]. 1 parameter only.'
+        else:
+            value = args[0]
+            print self.db.numequalto(value) 
 
     def _handle_end(self):
         sys.exit()
