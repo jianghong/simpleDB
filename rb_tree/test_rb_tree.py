@@ -44,8 +44,8 @@ class RBTreeTests(unittest.TestCase):
         self.tt.insert(Node(15)) 
         self.tt.insert(Node(5)) 
         self.tt.insert(Node(8)) 
-        self.tt.insert(Node(4)) 
-        verify_RB_tree_properties 
+        self.tt.insert(Node(4))
+        verify_RB_tree_properties(self.tt)
 
         self.tt = RBTree()
         self.tt.insert(Node(1)) 
@@ -57,7 +57,7 @@ class RBTreeTests(unittest.TestCase):
         self.tt.insert(Node(7)) 
         self.tt.insert(Node(8)) 
         self.tt.insert(Node(9)) 
-        verify_RB_tree_properties 
+        verify_RB_tree_properties(self.tt)
 
     def test_left_rotate(self):
         self.tt = RBTree(Node(0))
