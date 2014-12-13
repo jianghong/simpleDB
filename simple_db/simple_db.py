@@ -12,7 +12,8 @@ Supported operations:
     - GET [name]: Print out the value of the variable [name]. 
                   NULL if that variable is not set.
 
-    - UNSET [name]
+    - UNSET [name]: Unset the variable [name],
+                    making it just like that variable was never set.
 
     - NUMEQUALTO [value]
 
@@ -40,4 +41,12 @@ class SimpleDB:
         Return value of matching key from data_structure.
         """
         return self.data_structure.query(key)
+
+    def unset(self, key):
+        """
+        Unset matching key in data_structure if it exists.
+        """
+        to_delete = self.get(key)
+        if to_delete != NIL_NODE:
+            self.data_structure.delete(to_delete)
 

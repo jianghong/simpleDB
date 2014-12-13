@@ -43,7 +43,7 @@ class SimpleDBInterface:
         elif cmd == 'set':
             self._handle_set(args)
         elif cmd == 'unset':
-            pass
+            self._handle_unset(args)
         elif cmd == 'numequalto':
             pass
         elif cmd == 'begin':
@@ -57,6 +57,14 @@ class SimpleDBInterface:
         else:
             print 'UNRECOGNIZED COMMAND'
 
+    def _handle_get(self, args):
+        if self._bad_args(args, 1):
+            print 'USAGE: GET [name]. 1 parameter only.'
+        else:
+            key = args[0]
+            value = self.db.get(key).value 
+            print value if value else 'NULL'
+
     def _handle_set(self, args):
         if self._bad_args(args, 2):
             print 'USAGE: SET [name] [value]. 2 parameters only.'
@@ -66,13 +74,13 @@ class SimpleDBInterface:
             self.db.set(key, value)
             print ''
 
-    def _handle_get(self, args):
+    def _handle_unset(self, args):
         if self._bad_args(args, 1):
-            print 'USAGE: GET [name]. 1 parameter only.'
+            print 'USAGE: UNSET [name]. 1 parameter only.'
         else:
             key = args[0]
-            value = self.db.get(key).value 
-            print value if value else 'NULL'
+            self.db.unset(key)
+            print ''
 
     def _handle_end(self):
         sys.exit()
