@@ -70,7 +70,7 @@ if __name__ == '__main__':
     assert tt.root.parent == NIL_NODE
 
     # test passing in a node
-    tt = RBTree(Node('ex', RED, None, None, None))
+    tt = RBTree(Node('ex', 1, RED, None, None, None))
     assert tt.root.color == RED
     assert tt.root.key == 'ex'
 
@@ -132,3 +132,17 @@ if __name__ == '__main__':
     tt.insert(node_a)
     tt._right_rotate(tt.root)
     assert tt.root == node_a 
+
+    # test query
+    tt = RBTree(Node(1, 'k'))
+    assert tt.query(1).value == 'k'
+    tt.insert(Node(1))
+    tt.insert(Node(2))
+    tt.insert(Node(3))
+    tt.insert(Node(4))
+    tt.insert(Node(5, 'b'))
+    tt.insert(Node(6))
+    tt.insert(Node(7))
+    tt.insert(Node(8))
+    tt.insert(Node(9))
+    assert tt.query(5).value == 'b'

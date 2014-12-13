@@ -18,13 +18,14 @@ def print_tree(node):
 
 
 class Node:
-    def __init__(self, key=None, color=BLACK, parent=None, left=None,
+    def __init__(self, key=None, value=None, color=BLACK, parent=None, left=None,
                  right=None):
         self.color = color
         self.key = key
         self.parent = parent
         self.left = left
         self.right = right
+        self.value = value
 
 # Sentinel Nil node; This node is black and the other values don't matter
 NIL_NODE = Node() 
@@ -146,4 +147,18 @@ class RBTree:
             x.parent.left = y
         y.right = x
         x.parent = y
-   
+
+    def query(self, key):
+        """
+        Search and return the node with matching key.
+        """
+        def _query_helper(node, key):
+            if key == node.key:
+                return node
+            elif key < node.key:
+                return _query_helper(node.left, key)
+            else:
+                return _query_helper(node.right, key)
+
+        return _query_helper(self.root, key)
+
