@@ -45,10 +45,12 @@ class RBTree:
         new_node.left = NIL_NODE
         new_node.right = NIL_NODE
         new_node.color = RED
+        self._fixup_after_insert(new_node)
 
-    def _fixup_after_insert(self, new_node):
+    def _fixup_after_insert(self, inserted_node):
         """
-        Fix up RBTree by recoloring and rotating as needed.
+        Fix up RBTree by recoloring and rotating as needed to maintain 
+        properties of a Red-black tree.
         """
         pass
 
