@@ -110,7 +110,7 @@ class RBTreeTests(unittest.TestCase):
 
     def test_tree_min(self):
         insert_test_nodes_1(self.tt)
-        self.assertEqual(self.tt._tree_min(self.tt.root).key, 1)        
+        self.assertEqual(self.tt._tree_min(self.tt.root).key, 1)
 
     def test_simple_delete(self):
         insert_test_nodes_1(self.tt)
@@ -123,11 +123,19 @@ class RBTreeTests(unittest.TestCase):
         insert_test_nodes_1(self.tt)
         self.tt.delete(self.tt.query(5))
         self.assertEqual(self.tt.query(5), NIL_NODE)
-        verify_RB_tree_properties(self.tt, True)
+        verify_RB_tree_properties(self.tt)
         self.tt.delete(self.tt.query(14))
-        self.assertEqual(self.tt.query(14), NIL_NODE)        
-        verify_RB_tree_properties(self.tt, True)
-        
+        self.assertEqual(self.tt.query(14), NIL_NODE)
+        verify_RB_tree_properties(self.tt)
+
+        self.tt = RBTree()
+        insert_test_nodes_2(self.tt)       
+        self.tt.delete(self.tt.query(4))
+        self.assertEqual(self.tt.query(4), NIL_NODE)
+        verify_RB_tree_properties(self.tt)    
+        self.tt.delete(self.tt.query(8))
+        self.assertEqual(self.tt.query(8), NIL_NODE)
+        verify_RB_tree_properties(self.tt) 
 
 if __name__ == '__main__':
     unittest.main()
