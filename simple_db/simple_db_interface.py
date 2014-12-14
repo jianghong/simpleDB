@@ -1,5 +1,5 @@
 import sys
-from simple_db import SimpleDB
+from simple_db import SimpleDB, SimpleDB_docstring
 
 """
 SimpleDBInterface is the interface that the user will use to interact with
@@ -60,7 +60,9 @@ class SimpleDBInterface:
         elif cmd == 'commit':
             self._handle_commit(args)
         elif cmd == 'end':
-            self._handle_end()
+            self._handle_end(args)
+        elif cmd == 'help':
+            self._handle_help(args)
         else:
             print 'UNRECOGNIZED COMMAND'
 
@@ -116,8 +118,17 @@ class SimpleDBInterface:
         else:
             self.db.commit()
 
-    def _handle_end(self):
-        sys.exit()
+    def _handle_end(self, args):
+        if self._bad_args(args, 0):
+            print 'USAGE: END. No parameters required.'
+        else:        
+            sys.exit()
+
+    def _handle_help(self, args):
+        if self._bad_args(args, 0):
+            print 'USAGE: HELP. No parameters required.'
+        else:        
+            print SimpleDB_docstring
 
     def _bad_args(self, args, num_required):
         if len(args) != num_required:

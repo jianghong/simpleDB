@@ -2,24 +2,30 @@ from collections import defaultdict
 from data_structures.rb_tree import *
 from data_structures.hash_table import *
 
-"""
-SimpleDB is a simple database similar to redis. The underlying data structure
-is a Red-black tree
+SimpleDB_docstring = """
+SimpleDB is a simple database similar to redis.
 
 Supported operations:
     Data Commands
     =============
     - SET [name] [value]: Set the variable [name] to the value [value].
+      Example: > SET x 10
 
     - GET [name]: Print out the value of the variable [name]. 
                   NULL if that variable is not set.
+      Example: > GET x
+                10
 
     - UNSET [name]: Unset the variable [name],
                     making it just like that variable was never set.
+      Example: > UNSET x
 
     - NUMEQUALTO [value]: Print out the number of variables that are currently
                           set to [value]. 
                           If no variables equal that [value], prints 0.
+      Example: > SET x 10
+               > NUMEQUALTO 10
+                1
 
     - END: Exit the program.
 
@@ -28,12 +34,29 @@ Supported operations:
     - BEGIN: Open a new transaction block. 
              Transaction blocks can be nested;
              a BEGIN can be issued inside of an existing block.
-
+      
     - ROLLBACK: Undo all of the commands issued in the most 
                 recent transaction block, and close the block. 
 
     - COMMIT: Close all open transaction blocks, 
-              permanently applying the changes made in them. 
+              permanently applying the changes made in them.
+
+    Example: > BEGIN
+             > SET a 10
+             > GET a
+              10
+             > BEGIN
+             > SET a 20
+             > GET a
+              20
+             > ROLLBACK
+             > GET a
+              10
+             > ROLLBACK
+             > GET a
+              NULL
+
+
 """
 
 
