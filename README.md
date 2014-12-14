@@ -52,31 +52,31 @@ Input `help` to see available commands and examples:
 
 ### Hash table vs red-black tree
 
-By default a hash table is used. But strictly speaking search, insert and delete
+By default a hash table is used, but strictly speaking, search, insert and delete
 in a hash table can be O(n) in the worst case. So I decided to optionally add
-an implemention with a red-black tree because they are guaranteed to O(log(n)) 
+an implemention with a red-black tree because they are guaranteed to be O(log(n)) 
 in the worst case for search, insert and delete.
 
 ### NUMEQUALTO
 
-I simply used a python dictionary here with default values set as 0. The same
-logic as above could apply here and a red-black tree would work as well. But 
-to keep it simple I kept it as a dictionary. I mapped every value to an occurence
-count. Pretty straight forward implementation and maximizes for time.
+I simply used a python dictionary here with default values set as 0. 
+I mapped every value to an occurence count. Pretty straight forward implementation 
+and maximizes for time.The same logic as above could apply here and a red-black tree 
+would work as well, but to keep it simple I kept it as a dictionary. 
 
 ### Transactions
 
-The transaction interactions were really interesting really engaging. At first I
+The transaction interactions were really interesting and engaging to build. At first I
 thought about cloning the entire DB and keeping the state before every new transaction.
-I realized that was way to space inefficient.
+I realized that was way too space inefficient.
 
 Next, I thought about storing commands as they were inputted and then a rollback would
 do the opposite of the command if the command affected the state of the DB.
-i.e. Opposite of SET is UNSET and vice versa. I used nested stacks for this implementation
- but hit a roadblock.
+i.e. Opposite of SET is UNSET and vice versa. I used nested stacks for this implementation 
+but soon hit a roadblock.
 
 My final implementation is a culmination of the two ideas above. I want to only store the previous state
-of a changed variable instead of the entire DB. So I have a stack of dictionaries
+of changed variables instead of the entire DB. So I have a stack of dictionaries
 and each dictionary represented the previous state of variables that were changed.
-This implementation got past the roadblock and was quite space efficient, as well
-as time efficient.
+On rollback, the previous state would be restored. This implementation got past the 
+roadblock and was quite space efficient as well as time efficient.
