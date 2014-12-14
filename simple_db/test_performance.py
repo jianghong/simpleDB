@@ -1,7 +1,7 @@
 import unittest
 import time
 import random
-from simple_db.simple_db import SimpleDB
+from simple_db import SimpleDB
 
 class PerformanceTests(unittest.TestCase):
 

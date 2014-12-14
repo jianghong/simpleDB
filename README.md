@@ -1,7 +1,7 @@
 # SimpleDB
 
 SimpleDB is a simple database similar to redis. The underlying data structure
-is a python dictionary
+is a Red-black tree
 
 ## Supported operations:
 

@@ -62,7 +62,7 @@ class SimpleDBInterface:
             print 'USAGE: GET [name]. 1 parameter only.'
         else:
             key = args[0]
-            value = self.db.get(key) 
+            value = self.db.get(key)
             print value if value else 'NULL'
 
     def _handle_set(self, args):
@@ -125,6 +125,5 @@ class SimpleDBInterface:
         while self.line:
             split_line = self._sanitize(self.line).split(' ')
             self._handle_cmd(split_line[0], split_line[1:])
-            print self.db.transaction_stack
             self._prompt_for_cmd()
             self.line = sys.stdin.readline()

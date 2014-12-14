@@ -1,5 +1,5 @@
 import unittest
-from simple_db import *
+from simple_db import SimpleDB
 
 class SimpleDBTests(unittest.TestCase):
 
