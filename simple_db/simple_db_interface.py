@@ -45,6 +45,8 @@ class SimpleDBInterface:
         SimpleDB.
         """
 
+        cmd = self._sanitize(cmd)
+
         # chain of ifs instead of dict style for simplicity
         if cmd == 'get':
             self._handle_get(args)
@@ -122,13 +124,13 @@ class SimpleDBInterface:
     def _handle_end(self, args):
         if self._bad_args(args, 0):
             print 'USAGE: END. No parameters required.'
-        else:        
+        else:
             sys.exit()
 
     def _handle_help(self, args):
         if self._bad_args(args, 0):
             print 'USAGE: HELP. No parameters required.'
-        else:        
+        else:
             print SimpleDB_docstring
 
     def _bad_args(self, args, num_required):
@@ -143,7 +145,7 @@ class SimpleDBInterface:
     def start(self):
         """Start SimpleDBInterface and receive commands from stdin."""
         while self.line:
-            split_line = self._sanitize(self.line).split(' ')
+            split_line = self.line.strip().split(' ')
             self._handle_cmd(split_line[0], split_line[1:])
             self._prompt_for_cmd()
             self.line = sys.stdin.readline()
