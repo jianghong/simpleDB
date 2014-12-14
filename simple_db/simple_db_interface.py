@@ -27,6 +27,7 @@ class SimpleDBInterface:
     def __init__(self, use_rb_tree=None):
         if use_rb_tree == 'use_rb_tree':
             self.db = SimpleDB(rb_tree=True)
+            print 'Using red-black tree.'
         else:
             self.db = SimpleDB()
 
