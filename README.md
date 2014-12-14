@@ -98,8 +98,8 @@ do the opposite of the command if the command affected the state of the DB.
 i.e. Opposite of SET is UNSET and vice versa. I used nested stacks for this implementation 
 but soon hit a roadblock.
 
-My final implementation is a culmination of the two ideas above. I want to only store the previous state
+My final implementation is a culmination of the two ideas above. I only store the previous state
 of changed variables instead of the entire DB. So I have a stack of dictionaries
-and each dictionary represented the previous state of variables that were changed.
-On rollback, the previous state would be restored. This implementation got past the 
-roadblock and was quite space efficient as well as time efficient.
+and each dictionary represents the previous state of variables that are changed.
+On rollback, the previous state is be restored. This implementation got past the 
+roadblock and is quite space efficient as well as time efficient.
