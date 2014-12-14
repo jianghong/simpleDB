@@ -50,6 +50,28 @@ Input `help` to see available commands and examples:
 
 ## Implementation details
 
+There are three main layers. The interface layer, the SimpleDB layer and the
+data structure layer.
+
+### 1. Interface layer: `simple_db/simple_db_interface.py`
+
+This where the input from user is parsed, cleaned up and routed to the appropriate
+function im SimpleDB.
+
+### 2. SimpleDB layer: `simple_db/simple_db.py`
+
+SimpleDB was created with the ability to easily swap different data structures to
+be used. There is a `simple_db_protocol.py` file that potential data structures
+should adhere to in order for SimpleDB to interface with them.
+
+### 3. Data structure layer: 'simple_db/data_structures'
+
+Currently there is a hash table implementation and a red-black tree one.
+These data structures are the backbone of operations for SimpleDB and offer at least
+the basic functions of insert, search and delete.
+
+## Some design details
+
 ### Hash table vs red-black tree
 
 By default a hash table is used, but strictly speaking, search, insert and delete
