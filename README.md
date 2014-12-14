@@ -64,7 +64,7 @@ SimpleDB was created with the ability to easily swap different data structures t
 be used. There is a `simple_db_protocol.py` file that potential data structures
 should adhere to in order for SimpleDB to interface with them.
 
-### 3. Data structure layer: 'simple_db/data_structures'
+### 3. Data structure layer: `simple_db/data_structures`
 
 Currently there is a hash table implementation and a red-black tree one.
 These data structures are the backbone of operations for SimpleDB and offer at least
