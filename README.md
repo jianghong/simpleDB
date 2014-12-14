@@ -74,7 +74,8 @@ the basic functions of search, insert and delete.
 
 ### Hash table vs red-black tree
 
-By default a hash table is used, but strictly speaking, search, insert and delete
+By default a hash table is used because in practice and on average, search, insert and
+delete is O(1). However, strictly speaking, search, insert and delete
 in a hash table can be O(n) in the worst case. So I decided to optionally add
 an implemention with a red-black tree because they are guaranteed to be O(log(n)) 
 in the worst case for search, insert and delete.
