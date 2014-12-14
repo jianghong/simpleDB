@@ -55,8 +55,6 @@ Supported operations:
              > ROLLBACK
              > GET a
               NULL
-
-
 """
 
 
