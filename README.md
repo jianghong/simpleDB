@@ -1,9 +1,20 @@
 # SimpleDB
 
-SimpleDB is a simple database similar to redis. The underlying data structure
-is a Red-black tree
+SimpleDB is a simple database similar to redis. The default underlying 
+data structure is a hashtable ala python dictionary. 
 
-## Supported operations:
+There is an option to use a Red-black tree as the datastructure.
+
+## Usage
+Default usage with hash table:
+
+    simpledb
+
+Optional usage with red-black tree:
+
+    simpledb use_rb_tree
+
+## Supported operations
 
 ### Data Commands
 
@@ -32,3 +43,7 @@ is a Red-black tree
 
     - COMMIT: Close all open transaction blocks, 
               permanently applying the changes made in them. 
+
+## Implementation details
+
+bleh
