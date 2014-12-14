@@ -49,7 +49,7 @@ class SimpleDBInterface:
         elif cmd == 'begin':
             self._handle_begin(args)
         elif cmd == 'rollback':
-            pass
+            self._handle_rollback(args)
         elif cmd == 'commit':
             self._handle_commit(args)
         elif cmd == 'end':
@@ -95,6 +95,12 @@ class SimpleDBInterface:
         else:
             self.db.begin()
 
+    def _handle_rollback(self, args):
+        if self._bad_args(args, 0):
+            print 'USAGE: ROLLBACK. No parameters required.'
+        else:
+            self.db.rollback()
+
     def _handle_commit(self, args):
         if self._bad_args(args, 0):
             print 'USAGE: COMMIT. No parameters required.'
@@ -119,5 +125,6 @@ class SimpleDBInterface:
         while self.line:
             split_line = self._sanitize(self.line).split(' ')
             self._handle_cmd(split_line[0], split_line[1:])
+            print self.db.transaction_stack
             self._prompt_for_cmd()
             self.line = sys.stdin.readline()

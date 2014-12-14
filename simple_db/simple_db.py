@@ -1,4 +1,5 @@
 from collections import defaultdict
+import pdb
 """
 SimpleDB is a simple database similar to redis. The underlying data structure
 is a python dictionary
@@ -37,6 +38,7 @@ class SimpleDB:
         self.data_structure = {}
         self.value_count = defaultdict(int)
         self.transaction_stack = []
+        self.open_transactions = False
 
     def _decr_value_count(self, key):
         """
@@ -52,10 +54,24 @@ class SimpleDB:
         """
         self.value_count[value] += 1
 
+    def _store_previous_state(self, key):
+        """
+        Store previous state of key in most recent transaction in
+        transaction_stack.
+        """
+        previous_state_store = self.transaction_stack[-1]
+        old_key_state = previous_state_store.get(key, None)
+        if not old_key_state:
+            previous_state_store[key] = self.get(key) 
+
     def set(self, key, value):
         """
         Set key to value in data_structure.
         """
+
+        if self.open_transactions:
+            self._store_previous_state(key)
+
         # on every set decrease value count stored at key if exists
         # this is in case of a reset of an existing key
         self._decr_value_count(key)
@@ -72,6 +88,13 @@ class SimpleDB:
         """
         Unset matching key in data_structure if it exists.
         """
+        key_check = self.get(key)
+        if not key_check:
+            return
+
+        if self.open_transactions:
+            self._store_previous_state(key)
+
         self._decr_value_count(key)
         self.data_structure.pop(key, None)
 
@@ -85,15 +108,27 @@ class SimpleDB:
         """
         Begin a new transaction.
         """
-        self.transaction_stack.append([])
-        print self.transaction_stack
+        self.transaction_stack.append({})
+        self.open_transactions = True
 
     def rollback(self):
         """
         Rollback transformation commands in current transaction and close 
         transaction.
         """
-        print self.transaction_stack
+        if self.transaction_stack:
+            previous_state = self.transaction_stack.pop()
+            # temporarily set this to False so states don't get stored
+            self.open_transactions = False
+            for key, value in previous_state.iteritems():
+                if value:
+                    self.set(key, value) 
+                else:
+                    self.unset(key)
+
+            self.open_transactions = bool(self.transaction_stack)
+        else:
+            print 'NO TRANSACTION'
 
     def commit(self):
         """
@@ -101,5 +136,9 @@ class SimpleDB:
         Due to implementation, changes are saved at this point and just
         need to close transactions.
         """
-        self.transaction_stack = []
-        print self.transaction_stack
+        if self.transaction_stack:
+            self.transaction_stack = []
+        else:
+            print 'NO TRANSACTION'
+
+        self.open_transactions = False
