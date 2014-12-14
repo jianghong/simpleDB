@@ -57,7 +57,7 @@ in a hash table can be O(n) in the worst case. So I decided to optionally add
 an implemention with a red-black tree because they are guaranteed to be O(log(n)) 
 in the worst case for search, insert and delete.
 
-### NUMEQUALTO
+### numequalto
 
 I simply used a python dictionary here with default values set as 0. 
 I mapped every value to an occurence count. Pretty straight forward implementation 
