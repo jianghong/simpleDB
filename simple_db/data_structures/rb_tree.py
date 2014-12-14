@@ -1,3 +1,5 @@
+from simple_db_protocol import SimpleDBProtocol
+
 BLACK = 0
 RED = 1
 
@@ -33,7 +35,7 @@ class Node:
 NIL_NODE = Node()
 
 
-class RBTree:
+class RBTree(SimpleDBProtocol):
 
     def __init__(self, root=NIL_NODE):
         self.root = root
@@ -51,11 +53,12 @@ class RBTree:
 
         return walker_node
 
-    def insert(self, new_node):
+    def insert(self, key, value=None):
         """
         Insert new_node into RBTree.
         Assumes new_node.key exists.
         """
+        new_node = Node(key, value)
         operating_node = NIL_NODE
         walker_node = self.root
         while walker_node != NIL_NODE:
@@ -126,10 +129,11 @@ class RBTree:
 
         self.root.color = BLACK
 
-    def delete(self, node):
+    def delete(self, key):
         """
         Remove node from RBTree.
         """
+        node = self.query(key)
         successor_node = node
         original_successor_color = successor_node.color
         if node.left == NIL_NODE:

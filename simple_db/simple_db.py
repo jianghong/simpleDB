@@ -1,5 +1,6 @@
 from collections import defaultdict
-from rb_tree.rb_tree import *
+from data_structures.rb_tree import *
+from data_structures.hash_table import *
 
 """
 SimpleDB is a simple database similar to redis. The underlying data structure
@@ -38,8 +39,13 @@ Supported operations:
 
 class SimpleDB:
 
-    def __init__(self):
-        self.data_structure = RBTree()
+    def __init__(self, rb_tree=False):
+        if rb_tree:
+            self.data_structure = RBTree()
+        else:
+            self.data_structure = HashTable()
+
+        self.rb_tree = rb_tree
         self.value_count = defaultdict(int)
         self.transaction_stack = []
         self.open_transactions = False
@@ -81,13 +87,16 @@ class SimpleDB:
         # this is in case of a reset of an existing key
         self._decr_value_count(key)
         self._incr_value_count(value)
-        self.data_structure.insert(Node(key, value))
+        self.data_structure.insert(key, value)
 
     def get(self, key):
         """
         Return value of matching key from data_structure.
         """
-        return self.data_structure.query(key).value
+        if self.rb_tree:
+            return self.data_structure.query(key).value
+        else:
+            return self.data_structure.query(key)
 
     def unset(self, key):
         """
@@ -103,8 +112,8 @@ class SimpleDB:
         self._decr_value_count(key)
 
         to_delete = self.data_structure.query(key)
-        if to_delete != NIL_NODE:
-            self.data_structure.delete(to_delete)
+        if to_delete is not None:
+            self.data_structure.delete(key)
 
     def numequalto(self, value):
         """

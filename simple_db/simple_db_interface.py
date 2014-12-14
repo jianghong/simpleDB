@@ -24,8 +24,12 @@ Supported operations:
 
 class SimpleDBInterface:
 
-    def __init__(self):
-        self.db = SimpleDB()
+    def __init__(self, use_rb_tree=None):
+        if use_rb_tree == 'use_rb_tree':
+            self.db = SimpleDB(rb_tree=True)
+        else:
+            self.db = SimpleDB()
+
         self._prompt_for_cmd()
         self.line = sys.stdin.readline()
         self.start()
