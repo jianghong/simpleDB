@@ -94,12 +94,14 @@ class SimpleDBInterface:
             print 'USAGE: BEGIN. No parameters required.'
         else:
             self.db.begin()
+            print ''
 
     def _handle_rollback(self, args):
         if self._bad_args(args, 0):
             print 'USAGE: ROLLBACK. No parameters required.'
         else:
             self.db.rollback()
+            print ''
 
     def _handle_commit(self, args):
         if self._bad_args(args, 0):
