@@ -1,7 +1,6 @@
 import unittest
 import time
 import random
-from rb_tree.utils import verify_RB_tree_properties
 from simple_db.simple_db import SimpleDB
 
 class PerformanceTests(unittest.TestCase):
@@ -12,9 +11,6 @@ class PerformanceTests(unittest.TestCase):
         cls.n = 100000
         for i in xrange(cls.n):
             cls.db.set(i, i)
-
-    def tearDown(self):
-        verify_RB_tree_properties(self.db.data_structure)
 
     def test_set(self):
         """

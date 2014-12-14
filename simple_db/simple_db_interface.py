@@ -45,13 +45,13 @@ class SimpleDBInterface:
         elif cmd == 'unset':
             self._handle_unset(args)
         elif cmd == 'numequalto':
-            pass
+            self._handle_numequalto(args)
         elif cmd == 'begin':
-            pass
+            self._handle_begin(args)
         elif cmd == 'rollback':
-            pass
+            self._handle_rollback(args)
         elif cmd == 'commit':
-            pass
+            self._handle_commit(args)
         elif cmd == 'end':
             self._handle_end()
         else:
@@ -62,7 +62,7 @@ class SimpleDBInterface:
             print 'USAGE: GET [name]. 1 parameter only.'
         else:
             key = args[0]
-            value = self.db.get(key).value 
+            value = self.db.get(key) 
             print value if value else 'NULL'
 
     def _handle_set(self, args):
@@ -82,6 +82,31 @@ class SimpleDBInterface:
             self.db.unset(key)
             print ''
 
+    def _handle_numequalto(self, args):
+        if self._bad_args(args, 1):
+            print 'USAGE: NUMEQUALTO [value]. 1 parameter only.'
+        else:
+            value = args[0]
+            print self.db.numequalto(value) 
+
+    def _handle_begin(self, args):
+        if self._bad_args(args, 0):
+            print 'USAGE: BEGIN. No parameters required.'
+        else:
+            self.db.begin()
+
+    def _handle_rollback(self, args):
+        if self._bad_args(args, 0):
+            print 'USAGE: ROLLBACK. No parameters required.'
+        else:
+            self.db.rollback()
+
+    def _handle_commit(self, args):
+        if self._bad_args(args, 0):
+            print 'USAGE: COMMIT. No parameters required.'
+        else:
+            self.db.commit()            
+
     def _handle_end(self):
         sys.exit()
 
@@ -100,5 +125,6 @@ class SimpleDBInterface:
         while self.line:
             split_line = self._sanitize(self.line).split(' ')
             self._handle_cmd(split_line[0], split_line[1:])
+            print self.db.transaction_stack
             self._prompt_for_cmd()
             self.line = sys.stdin.readline()
