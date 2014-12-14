@@ -1,5 +1,6 @@
 from rb_tree import *
 
+
 def verify_properties_1_3_4(node):
     """
     1. Verify that every node in RBTree is red or black.
@@ -22,12 +23,14 @@ def verify_properties_1_3_4(node):
     verify_properties_1_3_4(node.left)
     verify_properties_1_3_4(node.right)
 
+
 def verify_property_2(root):
     """
     Verify that the root node in RBTree is black.
     """
-    
+
     assert root.color == BLACK
+
 
 def verify_property_5(root):
     """
@@ -51,6 +54,7 @@ def verify_property_5(root):
 
     _verify_property_5_helper(root, 0, -1)
 
+
 def verify_RB_tree_properties(RBTree, debug=False):
     """
     Utility function to verify tree holds Red-black tree properties.
@@ -65,24 +69,26 @@ def verify_RB_tree_properties(RBTree, debug=False):
         print_tree(RBTree.root)
         print "======================"
 
+
 def insert_test_nodes_1(tt):
-    tt.insert(Node(11)) 
-    tt.insert(Node(2)) 
-    tt.insert(Node(7)) 
-    tt.insert(Node(14)) 
-    tt.insert(Node(1)) 
-    tt.insert(Node(15)) 
-    tt.insert(Node(5)) 
-    tt.insert(Node(8)) 
-    tt.insert(Node(4))    
+    tt.insert(Node(11))
+    tt.insert(Node(2))
+    tt.insert(Node(7))
+    tt.insert(Node(14))
+    tt.insert(Node(1))
+    tt.insert(Node(15))
+    tt.insert(Node(5))
+    tt.insert(Node(8))
+    tt.insert(Node(4))
+
 
 def insert_test_nodes_2(tt):
-    tt.insert(Node(1)) 
-    tt.insert(Node(2)) 
-    tt.insert(Node(3)) 
-    tt.insert(Node(4)) 
-    tt.insert(Node(5)) 
-    tt.insert(Node(6)) 
-    tt.insert(Node(7)) 
-    tt.insert(Node(8)) 
-    tt.insert(Node(9))    
+    tt.insert(Node(1))
+    tt.insert(Node(2))
+    tt.insert(Node(3))
+    tt.insert(Node(4))
+    tt.insert(Node(5))
+    tt.insert(Node(6))
+    tt.insert(Node(7))
+    tt.insert(Node(8))
+    tt.insert(Node(9))

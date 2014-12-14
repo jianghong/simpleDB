@@ -3,6 +3,7 @@ import time
 import random
 from simple_db import SimpleDB
 
+
 class PerformanceTests(unittest.TestCase):
 
     @classmethod
@@ -39,4 +40,4 @@ class PerformanceTests(unittest.TestCase):
         print "Time to unset a random key in a db of size {0}: {1}".format(self.n, time.time() - t0)
 
 if __name__ == '__main__':
-    unittest.main()    
+    unittest.main()

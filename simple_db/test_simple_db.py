@@ -1,11 +1,11 @@
 import unittest
 from simple_db import SimpleDB
 
+
 class SimpleDBTests(unittest.TestCase):
 
     def setUp(self):
         self.db = SimpleDB()
-
 
     def test_basic_data_cmds_1(self):
         self.db.set('ex', 10)
@@ -26,7 +26,7 @@ class SimpleDBTests(unittest.TestCase):
         self.db.set('a', 10)
         self.assertEqual(self.db.get('a'), 10)
         self.db.begin()
-        self.db.set('a', 20) 
+        self.db.set('a', 20)
         self.assertEqual(self.db.get('a'), 20)
         self.db.rollback()
         self.assertEqual(self.db.get('a'), 10)
@@ -35,7 +35,7 @@ class SimpleDBTests(unittest.TestCase):
 
     def test_transaction_cmds_2(self):
         self.db.begin()
-        self.db.set('a', 30) 
+        self.db.set('a', 30)
         self.db.begin()
         self.db.set('a', 40)
         self.db.commit()
@@ -67,6 +67,6 @@ class SimpleDBTests(unittest.TestCase):
         self.assertEqual(self.db.numequalto(10), 1)
         self.db.commit()
         self.assertEqual(self.db.numequalto(10), 1)
-   
+
 if __name__ == '__main__':
     unittest.main()

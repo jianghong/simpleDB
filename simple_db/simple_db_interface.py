@@ -2,7 +2,7 @@ import sys
 from simple_db import SimpleDB
 
 """
-SimpleDBInterface is the interface that the user will use to interact with 
+SimpleDBInterface is the interface that the user will use to interact with
 SimpleDB. Details on implementation are in simple_db.py
 
 Supported operations:
@@ -20,7 +20,10 @@ Supported operations:
     - ROLLBACK
     - COMMIT
 """
+
+
 class SimpleDBInterface:
+
     def __init__(self):
         self.db = SimpleDB()
         self._prompt_for_cmd()
@@ -87,7 +90,7 @@ class SimpleDBInterface:
             print 'USAGE: NUMEQUALTO [value]. 1 parameter only.'
         else:
             value = args[0]
-            print self.db.numequalto(value) 
+            print self.db.numequalto(value)
 
     def _handle_begin(self, args):
         if self._bad_args(args, 0):
@@ -107,7 +110,7 @@ class SimpleDBInterface:
         if self._bad_args(args, 0):
             print 'USAGE: COMMIT. No parameters required.'
         else:
-            self.db.commit()            
+            self.db.commit()
 
     def _handle_end(self):
         sys.exit()
@@ -120,7 +123,6 @@ class SimpleDBInterface:
     def _sanitize(self, target):
         """Clean up target by lowercasing target and stripping whitespace."""
         return target.lower().strip()
-
 
     def start(self):
         """Start SimpleDBInterface and receive commands from stdin."""

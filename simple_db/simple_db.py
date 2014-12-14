@@ -34,7 +34,10 @@ Supported operations:
     - COMMIT: Close all open transaction blocks, 
               permanently applying the changes made in them. 
 """
+
+
 class SimpleDB:
+
     def __init__(self):
         self.data_structure = RBTree()
         self.value_count = defaultdict(int)
@@ -47,7 +50,8 @@ class SimpleDB:
         """
         old_value = self.get(key)
         if old_value:
-            self.value_count[old_value] = max(0, self.value_count[old_value] - 1)
+            self.value_count[old_value] = max(
+                0, self.value_count[old_value] - 1)
 
     def _incr_value_count(self, value):
         """
@@ -63,7 +67,7 @@ class SimpleDB:
         previous_state_store = self.transaction_stack[-1]
         old_key_state = previous_state_store.get(key, None)
         if not old_key_state:
-            previous_state_store[key] = self.get(key) 
+            previous_state_store[key] = self.get(key)
 
     def set(self, key, value):
         """
@@ -126,7 +130,7 @@ class SimpleDB:
             self.open_transactions = False
             for key, value in previous_state.iteritems():
                 if value:
-                    self.set(key, value) 
+                    self.set(key, value)
                 else:
                     self.unset(key)
 

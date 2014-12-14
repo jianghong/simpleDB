@@ -2,6 +2,7 @@ import unittest
 from utils import *
 from rb_tree import *
 
+
 class RBTreeTests(unittest.TestCase):
 
     def setUp(self):
@@ -9,7 +10,6 @@ class RBTreeTests(unittest.TestCase):
 
     def test_init(self):
         self.assertEqual(self.tt.root.parent, NIL_NODE)
-
 
     def test_init_RBTree_with_node(self):
         self.tt = RBTree(Node('ex', 1, RED))
@@ -40,7 +40,7 @@ class RBTreeTests(unittest.TestCase):
         verify_RB_tree_properties(self.tt)
 
         self.tt = RBTree()
-        insert_test_nodes_2(self.tt) 
+        insert_test_nodes_2(self.tt)
         verify_RB_tree_properties(self.tt)
 
     def test_left_rotate(self):
@@ -98,7 +98,7 @@ class RBTreeTests(unittest.TestCase):
         self.tt.insert(Node(1))
         self.tt._transplant(self.tt.query(1), self.tt.query(3))
         self.assertEqual(self.tt.root.left.key, 3)
-        self.assertEqual(self.tt.query(1), NIL_NODE)        
+        self.assertEqual(self.tt.query(1), NIL_NODE)
 
         self.tt = RBTree()
         self.tt.insert(Node(2))
@@ -106,7 +106,7 @@ class RBTreeTests(unittest.TestCase):
         self.tt.insert(Node(1))
         self.tt._transplant(self.tt.query(3), self.tt.query(1))
         self.assertEqual(self.tt.root.left.key, 1)
-        self.assertEqual(self.tt.query(3), NIL_NODE)        
+        self.assertEqual(self.tt.query(3), NIL_NODE)
 
     def test_tree_min(self):
         insert_test_nodes_1(self.tt)
@@ -129,13 +129,13 @@ class RBTreeTests(unittest.TestCase):
         verify_RB_tree_properties(self.tt)
 
         self.tt = RBTree()
-        insert_test_nodes_2(self.tt)       
+        insert_test_nodes_2(self.tt)
         self.tt.delete(self.tt.query(4))
         self.assertEqual(self.tt.query(4), NIL_NODE)
-        verify_RB_tree_properties(self.tt)    
+        verify_RB_tree_properties(self.tt)
         self.tt.delete(self.tt.query(8))
         self.assertEqual(self.tt.query(8), NIL_NODE)
-        verify_RB_tree_properties(self.tt) 
+        verify_RB_tree_properties(self.tt)
 
 if __name__ == '__main__':
     unittest.main()

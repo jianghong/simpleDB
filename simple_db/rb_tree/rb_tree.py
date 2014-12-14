@@ -1,7 +1,6 @@
-import pdb
-
 BLACK = 0
 RED = 1
+
 
 def print_tree(node):
     """
@@ -12,14 +11,15 @@ def print_tree(node):
 
     print "Node key: {0}, parent key: {1}, color: {2}, left: {3}, right: {4}" \
           " value: {5}".format(
-        node.key, node.parent.key, node.color, node.left.key, node.right.key,
-        node.value)
+              node.key, node.parent.key, node.color, node.left.key, node.right.key,
+              node.value)
 
     print_tree(node.left)
     print_tree(node.right)
 
 
 class Node:
+
     def __init__(self, key=None, value=None, color=BLACK, parent=None, left=None,
                  right=None):
         self.color = color
@@ -30,10 +30,11 @@ class Node:
         self.value = value
 
 # Sentinel Nil node; This node is black and the other values don't matter
-NIL_NODE = Node() 
+NIL_NODE = Node()
 
 
 class RBTree:
+
     def __init__(self, root=NIL_NODE):
         self.root = root
         self.root.parent = NIL_NODE
@@ -97,11 +98,11 @@ class RBTree:
                     parent_node.color = BLACK
                     uncle_node.color = BLACK
                     grandparent_node.color = RED
-                    walker_node = grandparent_node # walk walker_node
+                    walker_node = grandparent_node  # walk walker_node
                 else:
                     # walker_node's parent is RED, uncle is BLACK
                     if walker_node == parent_node.right:
-                        walker_node = parent_node # walk walker_node
+                        walker_node = parent_node  # walk walker_node
                         self._left_rotate(walker_node)
                     walker_node.parent.color = BLACK
                     walker_node.parent.parent.color = RED
@@ -113,15 +114,15 @@ class RBTree:
                     parent_node.color = BLACK
                     uncle_node.color = BLACK
                     grandparent_node.color = RED
-                    walker_node = grandparent_node # walk walker_node
+                    walker_node = grandparent_node  # walk walker_node
                 else:
                     # walker_node's parent is RED, uncle is BLACK
                     if walker_node == parent_node.left:
-                        walker_node = parent_node # walk walker_node
+                        walker_node = parent_node  # walk walker_node
                         self._right_rotate(walker_node)
                     walker_node.parent.color = BLACK
                     walker_node.parent.parent.color = RED
-                    self._left_rotate(walker_node.parent.parent)                                
+                    self._left_rotate(walker_node.parent.parent)
 
         self.root.color = BLACK
 
@@ -226,7 +227,7 @@ class RBTree:
         Assumes x.right is not NIL_NODE.
         """
         y = x.right
-        x.right = y.left 
+        x.right = y.left
         if y.left != NIL_NODE:
             y.left.parent = x
         y.parent = x.parent
@@ -272,4 +273,3 @@ class RBTree:
                 return _query_helper(node.right, key)
 
         return _query_helper(self.root, key)
-
