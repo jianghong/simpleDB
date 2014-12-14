@@ -68,7 +68,7 @@ should adhere to in order for SimpleDB to interface with them.
 
 Currently there is a hash table implementation and a red-black tree one.
 These data structures are the backbone of operations for SimpleDB and offer at least
-the basic functions of insert, search and delete.
+the basic functions of search, insert and delete.
 
 ## Some design details
 
